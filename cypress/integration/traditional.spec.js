@@ -25,8 +25,9 @@ describe('A traditional test', () => {
 // --------------------------------------------------------------------------------
 
 function loadLoginPage() {
-    // TODO: switch between app versions
-    cy.visit('https://demo.applitools.com')
+    let site = Cypress.env('DEMO_SITE') ?? 'original'
+    let extra = (site == 'original') ? '' : '/index_v2.html'
+    cy.visit('https://demo.applitools.com' + extra)
 }
 
 function verifyLoginPage() {

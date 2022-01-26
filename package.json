@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "cypress": "cypress open",
+    "cypress:original": "cypress open --env DEMO_SITE=original",
+    "cypress:changed": "cypress open --env DEMO_SITE=changed",
     "test": "cypress run",
+    "test:original": "cypress run --env DEMO_SITE=original",
+    "test:changed": "cypress run --env DEMO_SITE=changed",
     "test:chrome": "cypress run --browser chrome",
     "test:edge": "cypress run --browser edge",
     "test:firefox": "cypress run --browser firefox"
