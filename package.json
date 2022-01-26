@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/applitools/workshop-cbt-cypress#readme",
   "dependencies": {
+    "@applitools/eyes-cypress": "^3.23.6",
     "cypress": "^9.3.1"
   }
 }
