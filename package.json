@@ -1,0 +1,24 @@
+{
+  "name": "workshop-cbt-cypress",
+  "version": "1.0.0",
+  "description": "Workshop: Modern Cross-Browser Testing with Cypress",
+  "main": "index.js",
+  "scripts": {
+    "cypress": "cypress open",
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/applitools/workshop-cbt-cypress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/applitools/workshop-cbt-cypress/issues"
+  },
+  "homepage": "https://github.com/applitools/workshop-cbt-cypress#readme",
+  "dependencies": {
+    "cypress": "^9.3.1"
+  }
+}
