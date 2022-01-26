@@ -1,8 +1,14 @@
 /// <reference types="cypress" />
 
+
+// --------------------------------------------------------------------------------
+// Test Cases
+// --------------------------------------------------------------------------------
+
 describe('A traditional test', () => {
 
     beforeEach(() => {
+        // TODO: switch browsers and viewports
         cy.viewport(1600, 1200)
     })
 
@@ -14,7 +20,13 @@ describe('A traditional test', () => {
     })
 })
 
+
+// --------------------------------------------------------------------------------
+// Test Step Functions
+// --------------------------------------------------------------------------------
+
 function loadLoginPage() {
+    // TODO: switch between app versions
     cy.visit('https://demo.applitools.com')
 }
 
