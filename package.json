@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "cypress": "cypress open",
-    "test": "cypress run"
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome",
+    "test:edge": "cypress run --browser edge",
+    "test:firefox": "cypress run --browser firefox"
   },
   "repository": {
     "type": "git",

@@ -8,7 +8,6 @@
 describe('A traditional test', () => {
 
     beforeEach(() => {
-        // TODO: switch browsers and viewports
         cy.viewport(1600, 1200)
     })
 
