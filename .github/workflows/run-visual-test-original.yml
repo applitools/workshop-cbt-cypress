@@ -1,0 +1,18 @@
+name: Run Visual Test (Original)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          env: DEMO_SITE=original
+          spec: cypress/integration/visual.spec.js
