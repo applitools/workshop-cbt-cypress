@@ -17,7 +17,7 @@ both in automating test cases and in maintaining testing infrastructure.
 Let's give this a try ourselves to see what it takes.
 
 
-### 1.1 Writing a typical login test
+### 1.1. Writing a typical login test
 
 Web UI testing is all about app behaviors:
 interacting with visual interfaces and verifying outcomes.
@@ -159,3 +159,84 @@ Others check aspects of elements, like text values.
 Nevertheless, the element locators and the code for performing these assertions are a bit complex.
 They also do *not* cover everything on the page.
 There's risk that unchecked things could break.
+
+
+### 1.2. Running the test locally
+
+Let's run this test locally.
+To manually launch tests, execute `npx cypress open` from the command line
+and then run the target tests from the Cypress browser window that opens.
+This repository also has npm scripts for testing declared in `package.json`.
+You can run `npm run cypress` to open the Cypress window
+or `npm test` to run tests purely from the command line.
+The test should take no more than a minute to complete, and it should pass.
+
+Unfortunately, this test overlooks visual things.
+Take a look at the "changed" version of the demo site:
+
+![Demo site login page changed](images/demo-site-login-changed.png)
+
+Can you spot the subtle differences?
+
+* The icon at the top is broken
+* The "Sign in" button now says "Log in"
+* This button changed from blue to black
+
+Traditional test automation struggles to detect differences like these.
+We could try to add more assertions to our test,
+but they'd probably be complicated and fragile.
+For now, let's take a risk and ignore them.
+(We will revisit ways to handle them better later in this workshop.)
+
+If we want to run this test against either version of the login page,
+we could update the `loadLoginPage` method like this:
+
+Try rerunning the test with the changed demo site.
+You can execute `npm run cypress:original` and `npm run cypress:changed`
+to specify the site version via the `DEMO_SITE` variable.
+Even when `DEMO_SITE=changed`, the test will still pass.
+
+
+### 1.3. Running the test against multiple browsers
+
+TBD
+
+
+### 1.4. Scaling out cross-browser testing yourself
+
+TBD
+
+
+### 1.5. Scaling out cross-browser testing as a service
+
+TBD
+
+
+## 2. Modern cross-browser testing
+
+TBD
+
+
+### 2.1. Reconsidering what should be tested
+
+TBD
+
+
+### 2.2. Introducing Applitools Ultrafast Grid
+
+TBD
+
+
+### 2.3. Rewriting login as a visual test
+
+TBD
+
+
+### 2.4. Running visual tests across multiple browsers
+
+TBD
+
+
+### 2.5. Integrating modern cross-browser testing with CI/CD
+
+TBD
