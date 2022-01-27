@@ -574,4 +574,31 @@ As you can see, the big advantages of this type of cross-browser testing are:
 
 ### 2.5. Integrating modern cross-browser testing with CI/CD
 
-TBD
+Just like any other automated test suite,
+visual tests with Applitools Eyes and Ultrafast Grid can (and should)
+run from a Continuous Integration and Delivery (CI/CD) system.
+For example, you can integrate Applitools Eyes with Jenkins using the
+[Jenkins plugin](https://plugins.jenkins.io/applitools-eyes/),
+or you could simply launch tests from an agent's command line as part of a build job.
+
+CI/CD systems can trigger tests automatically:
+
+* *continuously* after code changes
+* *periodically* on schedules (like every night)
+* *on demand* whenever users manually launch tests
+
+This repository is configured with GitHub Actions to run the visual login test:
+
+* [Run Visual Test (Original)](https://github.com/applitools/workshop-cbt-cypress/actions/workflows/run-visual-test-original.yml)
+  runs the test with the original pages.
+* [Run Visual Test (Changed)](https://github.com/applitools/workshop-cbt-cypress/actions/workflows/run-visual-test-changed.yml)
+  runs the test with the changed pages to reveal visual failures.
+
+Ideally, teams want to get as many results as they can as quickly as possible.
+Fast feedback means that teams can resolve issues before they become more costly to fix.
+Unfortunately, traditional UI tests tend to be slow, especially with cross-browser variations.
+Teams face a tradeoff between coverage and fast feedback:
+more coverage means lower risk but slower feedback.
+Modern cross-browser testing with Visual AI and Applitools Ultrafast Grid enables more testing in less time,
+which widens coverage, preserves fast feedback, and enables UI testing to become continuous.
+It shifts testing further left.
