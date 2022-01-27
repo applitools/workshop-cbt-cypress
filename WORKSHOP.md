@@ -309,12 +309,27 @@ and they set ceilings on your level of scale with your service plans.
 
 ## 2. Modern cross-browser testing
 
-TBD
+There's got to be a better way to do cross-browser testing!
+Let's rethink our approach in what we want to test
+and how techniques like visual testing can simplify things.
 
 
 ### 2.1. Reconsidering what should be tested
 
-TBD
+What is the purpose of testing apps across multiple browsers?
+Historically, browsers were radically different.
+The JavaScript on one page would literally function differently in different browsers.
+These days, however, browsers have largely standardized on JavaScript.
+Traditional functional testing in one browser is typically good enough to verify that.
+Cross-browser testing should focus on the visuals of rendering and responsiveness.
+
+Here are some examples of visual blunders that traditional automated testing would miss:
+
+![Visual bug 1](images/slide-visual-bug-1.png)
+
+![Visual bug 2](images/slide-visual-bug-2.png)
+
+![Visual bug 3](images/slide-visual-bug-3.png)
 
 
 ### 2.2. Introducing Applitools Ultrafast Grid
