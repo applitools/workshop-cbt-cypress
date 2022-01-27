@@ -30,7 +30,7 @@ Highlights:
 1. Traditional cross-browser testing
    1. Writing a typical login test
    2. Running the test locally
-   3. Updating the test to handle multiple browsers
+   3. Running the test against multiple browsers
    4. Scaling out cross-browser testing yourself
    5. Scaling out cross-browser testing as a service
 2. Modern cross-browser testing
