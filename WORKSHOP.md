@@ -461,17 +461,115 @@ Not bad!
 
 ### 2.4. Running visual tests across multiple browsers
 
-TBD
+To run tests, we must set our Applitools API key as a system environment variable.
+You can fetch your key under your account in the Applitools dashboard.
 
-You will need to set your Applitools API key,
-which you can retrieve from your Applitools account and pass through as an environment variable.
-Then, you can name the batch and specify all the browser and device targets.
-Here, we will test against five desktop browsers and two mobile browsers.
-Notice that you can also set viewport sizes and orientations.
+On macOS and Linux:
+
+```
+$ export APPLITOOLS_API_KEY=<value>
+```
+
+On Windows:
+
+```
+> set APPLITOOLS_API_KEY=<value>
+```
+
+Now, we could run our new login test locally on Chrome, Edge, and Firefox,
+but if we want to run it in the Applitools Ultrafast Grid,
+we need to add one more thing to our project.
+Create a file named `applitools.config.js` at the project's root level
+with the following contents:
+
+```javascript
+module.exports = {
+    testConcurrency: 5,
+    apiKey: 'APPLITOOLS_API_KEY',
+    browser: [
+        // Desktop
+        {width: 800, height: 600, name: 'chrome'},
+        {width: 700, height: 500, name: 'firefox'},
+        {width: 1600, height: 1200, name: 'ie11'},
+        {width: 1024, height: 768, name: 'edgechromium'},
+        {width: 800, height: 600, name: 'safari'},
+        // Mobile
+        {deviceName: 'iPhone X', screenOrientation: 'portrait'},
+        {deviceName: 'Pixel 2', screenOrientation: 'portrait'},
+        {deviceName: 'Galaxy S5', screenOrientation: 'portrait'},
+        {deviceName: 'Nexus 10', screenOrientation: 'portrait'},
+        {deviceName: 'iPad Pro', screenOrientation: 'landscape'},
+    ],
+    batchName: 'Modern Cross-Browser Testing Workshop'
+}
+```
+
+`applitools.config.js` configures how to visually test snapshots.
+This configuration will test 5 desktop browsers of varying viewport sizes
+and 5 mobile devices of varying orientations.
 You can test all the major browsers up to two previous versions,
 and you can test over 60 emulated mobile devices.
 The configuration is concise and declarative.
+Notice how even though Cypress cannot test Safari, IE, or mobile browser locally,
+the Ultrafast Grid *can* test snapshots from Cypress tests using those browsers!
 
+`testConcurrency` controls the degree of parallel execution in the Ultrafast Grid.
+(If you have a free account, you may be limited to 1.)
+
+Let's run the visual version of the login test with the original site to set baselines:
+
+```bash
+$ npx cypress run --env DEMO_SITE=original --spec "cypress/integration/visual.spec.js"
+```
+
+Make sure to set the `APPLITOOLS_API_KEY` environment variable to your API key.
+When launched locally, you should see the test run headlessly.
+Then, the automation uploads the snapshots to Applitools Ultrafast Grid to run against the ten other targets.
+All tests should take about half a minute to complete.
+
+Results in the Applitools Eyes dashboard should look like this:
+
+![Applitools Eyes Dashboard with baselines](images/applitools-dash-baselines.png)
+
+Notice how the batch of tests has one test for each target configuration.
+Each test has two snapshots: one for the login page, and one for the main page.
+All tests have "New" status because they are baselines.
+
+Run the tests again.
+The second run should succeed just like the first.
+However, the new dashboard results now say "Passed"
+because Applitools compared the latest snapshots to the baselines
+and verified that they had not changed.
+You can also group results by browser, OS, and other criteria:
+
+![Applitools Eyes Dashboard with passing tests](images/applitools-dash-passed.png)
+
+To show the power of Visual AI in testing,
+let's run the tests one more time with visual changes to the demo site:
+
+```bash
+$ npx cypress run --env DEMO_SITE=changed --spec "cypress/integration/visual.spec.js"
+```
+
+This time, changes are detected on the login page!
+Differences between the baseline and the current snapshot are highlighted in magenta.
+Changes are *not* detected on the main page despite different numbers on the page
+because we set the match level to LAYOUT.
+
+![Applitools Eyes Dashboard with unresolved tests](images/applitools-dash-unresolved.png)
+
+We can address these results just like any other visual results.
+
+Notice how long the visual tests took to run.
+Locally, the visual version of the test took about the same amount of time as the traditional version.
+In the Applitools Ultrafast Grid, the ten additional tests combined took a little more than half a minute.
+That's very fast for ten tests in a cloud platform!
+
+As you can see, the big advantages of this type of cross-browser testing are:
+
+1. *Speed:* tests take second instead of minutes
+2. *Simplicity:* visual checkpoints replace complicated assertions
+3. *Sharpness:* Visual AI accurately highlights meaningful changes to a human eye
 
 
 ### 2.5. Integrating modern cross-browser testing with CI/CD
