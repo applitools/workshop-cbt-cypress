@@ -373,12 +373,105 @@ then check out this report:
 
 ### 2.3. Rewriting login as a visual test
 
-TBD
+Let's rewrite our login test into a visual test.
+The test steps can remain the same, but the setup and assertions will change.
+In this repository,
+[`cypress/integration/visual.spec.js`](cypress/integration/visual.spec.js)
+contains the updated code.
+
+First, we need to install and set up the Applitools Eyes SDK for Cypress:
+
+```bash
+$ npm install @applitools/eyes-cypress
+$ npx eyes-setup
+```
+
+The first command will install the npm package for the project.
+The second command will add Applitools Eyes SDK plugins and support to the project.
+
+The login test's steps will remain the same,
+but we need to make Applitools Eyes watch the browser.
+We do that by starting each test with `cy.eyesOpen(...)`
+and ending each test with `cy.eyesClose()`.
+When opening Eyes, we also specify the names of the app and the test:
+
+```javascript
+describe('A visual test with Applitools', () => {
+
+    it('should log into the demo app', () => {
+
+        cy.eyesOpen({
+            appName: 'Applitools Demo App',
+            testName: 'Login',
+        })
+
+        loadLoginPage()
+        verifyLoginPage()
+        performLogin()
+        verifyMainPage()
+    })
+
+    afterEach(() => {
+        cy.eyesClose()
+    })
+})
+```
+
+The `loadLoginPage` and `performLogin` methods do not need any changes because the interactions are the same.
+However, the "verify" methods can reduce drastically:
+
+```javascript
+function verifyLoginPage() {
+    cy.eyesCheckWindow({
+        tag: "Login page",
+        target: 'window',
+        fully: true
+    });
+}
+
+function verifyMainPage() {
+    cy.eyesCheckWindow({
+        tag: "Main page",
+        target: 'window',
+        fully: true,
+        matchLevel: 'Layout'
+    });
+}
+```
+
+**"A picture is worth a thousand assertions."**
+Previously, these methods had multiple complicated assertions
+that merely checked if some elements appeared or had certain text values.
+Now, Applitools Eyes captures a full snapshot,
+checking *everything* on the page like a pair of human eyes.
+It's one, simple, declarative capture.
+We just say "check it" instead of spending time splicing selectors and making explicit comparisons.
+It also covers aspects like broken images and colors that our traditional functional test missed.
+
+As a software engineer myself,
+I cannot understate how much development time these visual checkpoints save me.
+I spend so much time trying to find locators and program clever assertions,
+but they are so fragile,
+and there are only so many assertions I can include.
+
+These are the only changes we need to make to the test case
+to convert it from a traditional functional test to a visual one.
+Not bad!
 
 
 ### 2.4. Running visual tests across multiple browsers
 
 TBD
+
+You will need to set your Applitools API key,
+which you can retrieve from your Applitools account and pass through as an environment variable.
+Then, you can name the batch and specify all the browser and device targets.
+Here, we will test against five desktop browsers and two mobile browsers.
+Notice that you can also set viewport sizes and orientations.
+You can test all the major browsers up to two previous versions,
+and you can test over 60 emulated mobile devices.
+The configuration is concise and declarative.
+
 
 
 ### 2.5. Integrating modern cross-browser testing with CI/CD
