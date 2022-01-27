@@ -18,7 +18,9 @@ describe('A visual test with Applitools', () => {
         verifyLoginPage()
         performLogin()
         verifyMainPage()
+    })
 
+    afterEach(() => {
         cy.eyesClose()
     })
 })
