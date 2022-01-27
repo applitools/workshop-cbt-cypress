@@ -199,7 +199,29 @@ Even when `DEMO_SITE=changed`, the test will still pass.
 
 ### 1.3. Running the test against multiple browsers
 
-TBD
+Cypress can run tests against Chrome, Edge, and Firefox.
+(Unfortunately, other browsers are not supported – at least not yet.)
+You can specify the target browser in two ways.
+
+If you run test from the Cypress browser window,
+you can select the target browser from the top-right dropdown.
+It will show all supported browsers available for testing on your machine:
+
+![Cypress browser choice](images/cypress-browser-choice.png)
+
+You can also dictate the target browser with the `--browser <name>` argument.
+For example, `npx cypress run --browser chrome` will run tests using Chrome.
+`package.json` provides convenient npm scripts for selecting browsers.
+For example, `npm run test:chrome` will also run tests against Chrome.
+
+Try running the login test in Chrome, Firefox, and Edge.
+It should pass in all browsers.
+
+Note that the target browser is *not* coded into the test case itself.
+Tests should be able to run against any browser,
+and each test launch should pick one target browser.
+If you want to run on multiple browsers,
+then trigger the tests separately for each browser.
 
 
 ### 1.4. Scaling out cross-browser testing yourself
