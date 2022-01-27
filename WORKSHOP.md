@@ -226,12 +226,85 @@ then trigger the tests separately for each browser.
 
 ### 1.4. Scaling out cross-browser testing yourself
 
-TBD
+Local testing is fine while developing automated tests,
+but it's not good practice for running tests "for real."
+Local machines have limits:
+
+![Local testing limits with Cypress](images/slide-local-testing-limits.png)
+
+* Cypres does not support *all* browser types.
+  Namely, it does not support Safari or Internet Explorer.
+* One machine can have only one version of a browser at a time,
+  unless you make some questionable hacks.
+* One machine can run only a limited number of tests in parallel.
+  Optimal execution time is typically 1 web test per processor/core.
+* Laptops are not mobile devices.
+  Either you emulate mobile devices or connect remotely to physical devices.
+  Cypress also has limitations on its mobile testing capabilities.
+
+Ideally, web UI tests should be run from a Continuous Integration system
+with scaled-out infrastructure to handle cross-browser testing.
+
+One way to do this is to build the infrastructure yourself.
+Cypress provides guides on 
+[parallelization](https://docs.cypress.io/guides/guides/parallelization)
+and [cross-browser testing](https://docs.cypress.io/guides/guides/cross-browser-testing).
+Essentially, you will need to create a Cypress dashboard and set up a cluster of machines to handle testing.
+It's similar to [Selenium Grid](https://www.selenium.dev/documentation/grid/) for Selenium WebDriver.
+
+![Cypress parallelization](images/cypress-parallel.png)
+
+I used Selenium Grid when I worked at [Q2](https://www.q2.com/).
+You can read all about it in a case study I wrote in collaboration with [Tricentis](https://www.tricentis.com/):
+[How Q2 uses BDD with SpecFlow for testing PrecisionLender](https://automationpanda.com/2021/09/21/how-q2-uses-bdd-with-specflow-for-testing-precisionlender/).
+Basically, we created multiple Selenium Grid instances using Windows virtual machines in Microsoft Azure.
+When tests launched, TeamCity (our CI system) ran PowerShell scripts to power on the VMs.
+The grid would take a few minutes to boot.
+Then, once tests completed, TeamCity ran PowerShell scripts to power off the VMs to save money.
+Since we tightly controlled the grids, tests ran just as fast as they did on our local laptops.
+We could scale up to 100 parallel tests.
+
+![1970 Volkswagen Beetle maintenance](images/vw-beetle.jpeg)
+
+Unfortunately, do-it-yourself infrastructure, whether with Cypress or Selenium, is a hassle.
+It's like maintaining an old car: there are always problems.
+Figuring out correct setup, security policies, and performance tuning took our team *months*.
+It truly was never a finished project because we kept needing to make adjustments as our suites grew.
+We also had to set up and configure everything manually.
+Any time a browser update came along, we needed to log into every VM and make updates.
+
+On top of perpetual maintenance, our grids would arbitrarily crash from time to time.
+Hubs would go unresponsive.
+Browser sessions on nodes would freeze.
+Debugging these issues was practically impossible, too.
+Usually, all we could do was just relaunch test suites.
+
+![Screen combination explosion](images/slide-screen-explosion.png)
+
+True cross-browser testing has a combinatorial explosion of screens to cover.
+Think about every browser, OS, platform, and version.
+Then, think about every page, viewport, and even language.
+That's enormous!
+Building your own grid, you can accommodate some of these, but not all.
 
 
 ### 1.5. Scaling out cross-browser testing as a service
 
-TBD
+Instead of building your own infrastructure,
+you can pay an external vendor to provide it for you as a cloud-based service.
+A vendor handles all the screen combinations for you.
+Your test simply needs to declare what you want for your remote Cypress session.
+Vendor platforms also typically have nice features like dashboards, screenshots, and videos.
+
+![Traditional cross-browser testing is broken](images/slide-cbt-is-broken.png)
+
+Unfortunately, traditional cross-browser-testing-as-a-service still has problems.
+Difficulties with security, debuggability, and reliability are the same as for DIY grids.
+Tests also run much slower because they need to communicate with a more distant session.
+Anecdotally, my tests have taken 2-4x more time to complete versus running locally or in my own grid.
+That's *huge*.
+Furthermore, cross-browser vendor services can be quite expensive,
+and they set ceilings on your level of scale with your service plans.
 
 
 ## 2. Modern cross-browser testing
