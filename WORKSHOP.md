@@ -334,7 +334,41 @@ Here are some examples of visual blunders that traditional automated testing wou
 
 ### 2.2. Introducing Applitools Ultrafast Grid
 
-TBD
+This is where Applitools can help
+with a modern solution for cross-browser testing:
+[Visual AI](https://applitools.com/applitools-ai-and-deep-learning/)
+with the [Ultrafast Grid](https://applitools.com/product-ultrafast-test-cloud/).
+
+![Applitools Ultrafast Grid](images/slide-ultrafast-grid.png)
+
+Visual testing is all about capturing snapshots of pages and inspecting them for differences.
+Notice how I used the word "snapshot," not "screenshot."
+Screenshots are just static pixel images.
+A *snapshot* is an instantaneous capture of the whole UI for a page: HTML, CSS, JavaScript, the works!
+Snapshots can be re-rendered in different browsers and screen size to test their responsiveness.
+
+Here's how we can rework our old login test into a visual test.
+First, we can add the [Applitools Eyes](https://applitools.com/products-eyes/) SDK
+to take visual snapshots of the login and main pages.
+We still need the Selenium WebDriver automation for interactions,
+but we can replace many (if not all) of the old assertions with visual checkpoints.
+Next, we can configure a runner to render those snapshots
+using multiple browsers and devices in Applitools Ultrafast Grid.
+The test will run once locally,
+but all cross-browser testing will be done in the Applitools Cloud with parallel execution.
+
+Since the only testing done in Ultrafast Grid is visual rendering and comparison, it's very fast.
+The infrastructure is also simpler because communication is a single direction
+from the test machine to the Applitools cloud.
+There's no back-and-forth communication like with a traditional functional test.
+
+You can use Applitools Eyes and the Ultrafast Grid with any automation tool or framework:
+Cypress, Selenium, Appium, Playwright, WebDriverIO, Nightwatch, and more.
+
+If you want specific data on how much faster and more efficient your testing can be
+with Visual AI and Applitools Ultrafast Grid,
+then check out this report:
+[Modern Cross Browser Testing Through Visual AI Report: 3,112 hours of empirical data sourced from 203 engineers](https://applitools.com/modern-cross-browser-testing-report/).
 
 
 ### 2.3. Rewriting login as a visual test
