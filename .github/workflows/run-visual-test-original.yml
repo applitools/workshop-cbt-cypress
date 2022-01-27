@@ -14,5 +14,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          env: DEMO_SITE=original
+          env: DEMO_SITE=original,APPLITOOLS_API_KEY=${{ secrets.APPLITOOLS_API_KEY }}
           spec: cypress/integration/visual.spec.js
