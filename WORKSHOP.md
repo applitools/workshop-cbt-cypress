@@ -534,6 +534,13 @@ Results in the Applitools Eyes dashboard should look like this:
 Notice how the batch of tests has one test for each target configuration.
 Each test has two snapshots: one for the login page, and one for the main page.
 All tests have "New" status because they are baselines.
+Also, notice how little time it took to run this batch of tests.
+Running our test across 10 different browser configurations
+with 2 visual checkpoints each at a concurrency level of 5 took only 36 seconds to complete.
+That’s ultra fast!
+Running that many test iterations locally or in a
+[traditional Cypress parallel environment](https://docs.cypress.io/guides/guides/parallelization#Overview)
+could take several minutes.
 
 Run the tests again.
 The second run should succeed just like the first.
@@ -558,12 +565,9 @@ because we set the match level to LAYOUT.
 
 ![Applitools Eyes Dashboard with unresolved tests](images/applitools-dash-unresolved.png)
 
-We can address these results just like any other visual results.
+We can address these results just like any other visual results:
 
-Notice how long the visual tests took to run.
-Locally, the visual version of the test took about the same amount of time as the traditional version.
-In the Applitools Ultrafast Grid, the ten additional tests combined took a little more than half a minute.
-That's very fast for ten tests in a cloud platform!
+![Applitools Eyes Dashboard visual comparison](images/applitools-dash-diff.png)
 
 As you can see, the big advantages of this type of cross-browser testing are:
 
