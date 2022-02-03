@@ -3,7 +3,7 @@
 # Workshop Walkthrough
 
 This guide provides a full written walkthrough for the
-[Modern Cross-Browser Testing with Cypress](http://applitools.info/66v) workshop
+[Modern Cross-Browser Testing with Cypress](http://applitools.info/qjg) workshop
 led by [Pandy Knight](https://twitter.com/AutomationPanda)
 and hosted by [Applitools](https://applitools.com/).
 You can code along with the video recordings,
